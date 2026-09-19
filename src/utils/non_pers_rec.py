@@ -19,8 +19,9 @@ df_rating, df_rating_test = load_train_test()
 df_users = load_users()
 df_items = load_items()
 
-# The genre columns are the multi-hot block that starts at "unknown": columns
-# 0 to 4 hold the title, the dates and the IMDb url.
+# Columns 0 to 4 hold the title, the two dates, the IMDb url and the "unknown"
+# flag; the 18 multi-hot genre columns start at "Action". Slicing at 7, as this
+# module used to do, silently dropped "Action" and "Adventure".
 genre_cols = df_items.columns[5:]
 
 genre_series = df_items[genre_cols].apply(

@@ -7,7 +7,7 @@
 
 ## TP — Non-personalised recommendations on MovieLens
 
-`MovieLensDataAnalysis.ipynb` is the TP, and it is **completed and executed** in
+`philippe.arthur-tp1.ipynb` (the former `MovieLensDataAnalysis.ipynb`) is the TP, and it is **completed and executed** in
 this repository: every `📝 TASK` / `Insert your code here` cell is filled in, and
 the "❓ Think About" questions are answered in the `>` quoted cells.
 
@@ -29,7 +29,7 @@ the "❓ Think About" questions are answered in the `>` quoted cells.
 ```bash
 pip install -r requirements.txt     # from the repository root
 bash scripts/download_movielens.sh  # ml-100k + ml-10m, into src/data (git-ignored)
-jupyter lab src/01_Introduction/MovieLensDataAnalysis.ipynb
+jupyter lab src/01_Introduction/philippe.arthur-tp1.ipynb
 ```
 
 A full run takes a bit more than a minute.
