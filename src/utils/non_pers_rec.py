@@ -1,71 +1,27 @@
-"""Module to collect functions and objects for non-personalised recommendations lectures."""
-import pandas as pd
+"""Module to collect functions and objects for non-personalised recommendations lectures.
+
+The dataset is loaded through `utils.data_utils`, which reads a local copy of the
+ml-100k archive when there is one and falls back to the GroupLens URLs otherwise.
+"""
+
 import logging
 
 from typing import List
 
+import pandas as pd  # noqa: F401  (kept: the notebooks import pandas through this module)
+
+from .data_utils import load_items, load_train_test, load_users
 from .style.colours import Colour
 
 logger = logging.getLogger(__name__)
 
-df_rating = pd.read_csv(
-    "http://files.grouplens.org/datasets/movielens/ml-100k/u1.base",
-    sep="\t",
-    engine="python",
-    header=None,
-)
-df_rating.columns = ["UserId", "MovieId", "Rating", "Timestamp"]
-df_rating_test = pd.read_csv(
-    "http://files.grouplens.org/datasets/movielens/ml-100k/u1.test",
-    sep="\t",
-    engine="python",
-    header=None,
-)
+df_rating, df_rating_test = load_train_test()
+df_users = load_users()
+df_items = load_items()
 
-df_users = pd.read_csv(
-    "http://files.grouplens.org/datasets/movielens/ml-100k/u.user",
-    sep="|",
-    engine="python",
-    header=None,
-)
-df_users.columns = ["UserId", "Age", "Gender", "Occupation", "ZipCode"]
-df_users.set_index("UserId", inplace=True)
-df_items = pd.read_csv(
-    "http://files.grouplens.org/datasets/movielens/ml-100k/u.item",
-    sep="|",
-    engine="python",
-    encoding="ISO-8859-1",
-    header=None,
-)
-df_items.columns = [
-    "MovieId",
-    "Title",
-    "Date",
-    "VideoReleaseDate",
-    "Url",
-    "unknown",
-    "Action",
-    "Adventure",
-    "Animation",
-    "Children",
-    "Comedy",
-    "Crime",
-    "Documentary",
-    "Drama",
-    "Fantasy",
-    "Film-Noir",
-    "Horror",
-    "Musical",
-    "Mystery",
-    "Romance",
-    "Sci-Fi",
-    "Thriller",
-    "War",
-    "Western",
-]
-df_items.set_index("MovieId", inplace=True)
-
-genre_cols = df_items.columns[7:]
+# The genre columns are the multi-hot block that starts at "unknown": columns
+# 0 to 4 hold the title, the dates and the IMDb url.
+genre_cols = df_items.columns[5:]
 
 genre_series = df_items[genre_cols].apply(
     lambda row: row[row == 1].index.tolist(), axis=1
