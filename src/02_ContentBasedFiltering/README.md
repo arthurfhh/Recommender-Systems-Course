@@ -11,7 +11,7 @@
 | File | What it is |
 |---|---|
 | `BookRecommender_exercise.ipynb` | The assignment (statement only) |
-| `BookRecommender_solution.ipynb` | Worked solution, executed, with all the outputs |
+| `philippe.arthur-tp2.ipynb` | Worked solution (ex-`BookRecommender_solution.ipynb`), executed, with all the outputs |
 | `../utils/book_recommender.py` | The reusable code: loading, split, models, metrics |
 | `../tests/test_book_recommender.py` | Unit tests for the above (synthetic data, no download) |
 | `../../scripts/download_goodbooks.sh` | Downloads the dataset into `data/` (git-ignored) |
@@ -21,7 +21,7 @@
 ```bash
 pip install -r requirements.txt          # from the repository root
 bash scripts/download_goodbooks.sh       # ~32 MB zipped, ~100 MB extracted
-jupyter lab src/02_ContentBasedFiltering/BookRecommender_solution.ipynb
+jupyter lab src/02_ContentBasedFiltering/philippe.arthur-tp2.ipynb
 ```
 
 A full run takes about 6 minutes on a laptop CPU; nothing needs a GPU.
