@@ -22,7 +22,7 @@ them.
 | 6. Training | The `GradientTape` loop of the statement, wrapped in `train_cofi` (same seed and hyper-parameters) with the cost curve |
 | 7. Recommendations | `top_recommendations`, the fit on my own ratings, and the same list without the `min_ratings` filter |
 | 8. Comparison table | `log_result`, writing `comparison_table.csv` in the format Session 04 uses |
-| 9. Going further | All three topics — see below |
+| 9. Going further | The regularisation study, on held-out ratings — see below |
 
 ### Running it
 
@@ -33,7 +33,7 @@ jupyter lab src/03_CollaborativeFiltering/philippe.arthur-tp3.ipynb
 
 The notebook is **self-contained**: it needs no other file of the repository and downloads
 its dataset (~0.5 MB) into `./data` next to itself, as the statement does. A full run takes
-about 7 minutes on a laptop CPU (18 trainings of 200 iterations); nothing needs a GPU.
+about 2 minutes on a laptop CPU (5 trainings of 200 iterations); nothing needs a GPU.
 
 It was checked by copying the notebook alone into an empty folder and executing it there from
 top to bottom, twice: with Python 3.13 / TensorFlow 2.21, and with Python 3.9 / TensorFlow
@@ -50,12 +50,16 @@ both cells do nothing.
 
 ### What section 9 shows
 
-| Topic | Result |
-|---|---|
-| **Regularisation** | 10 % of the ratings are held out. λ = 0 overfits completely (validation RMSE 3.90, predictions between −39 and +43); **λ = 1, the value of the statement, predicts unseen ratings no better than the movie means (0.970 against 0.971)**; λ = 10 is the best (**0.854**); λ = 30 underfits (0.867, the latent vectors collapse to 0). |
-| **Cold start, new user** | The model ranks by raw mean rating, i.e. recommends movies with a single 5★. A damped mean fixes the list; replaying my own onboarding shows the model beating the movie means from about 5 ratings on. |
-| **Cold start, new movie** | The plain model predicts about 0★ (RMSE ≈ 4). Borrowing the latent vector of the movies with the closest *title* brings it to 0.60-0.80 for franchise movies, and does nothing — or slightly worse than the catalogue mean — for the others. |
-| **Toward a hybrid** | A comparison of what each model contributes, three ways to combine them, and a blend whose weight grows with the number of ratings of the movie. |
+The statement asks for at least one of three topics; the one treated is the
+**regularisation**. 10 % of the ratings are held out and the model is retrained with four
+values of λ:
+
+| λ | Validation RMSE | Reading |
+|---|---|---|
+| 0 | 3.90 | Complete overfitting: predictions between −39 and +43 |
+| 1 (the statement's value) | 0.970 | **No better than predicting each movie's mean (0.971)** |
+| 10 | **0.854** | Best of the four |
+| 30 | 0.867 | Underfitting: the latent vectors collapse to 0 |
 
 The takeaway: a recommendation list that looks sensible proves little. The model trained as
 prescribed gives a convincing top 10, and held-out ratings show that it has learned nothing
