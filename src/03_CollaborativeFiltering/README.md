@@ -28,19 +28,25 @@ them.
 
 ```bash
 pip install -r requirements.txt                # from the repository root
-bash scripts/download_movielens_small.sh       # ~0.5 MB, into src/03_CollaborativeFiltering/data (git-ignored)
 jupyter lab src/03_CollaborativeFiltering/philippe.arthur-tp3.ipynb
 ```
 
-A full run takes about 7 minutes on a laptop CPU (18 trainings of 200 iterations); nothing
-needs a GPU. The notebook was executed with Python 3.13 and TensorFlow 2.21.
+The notebook is **self-contained**: it needs no other file of the repository and downloads
+its dataset (~0.5 MB) into `./data` next to itself, as the statement does. A full run takes
+about 7 minutes on a laptop CPU (18 trainings of 200 iterations); nothing needs a GPU.
+
+It was checked by copying the notebook alone into an empty folder and executing it there from
+top to bottom, twice: with Python 3.13 / TensorFlow 2.21, and with Python 3.9 / TensorFlow
+2.14.1 and the pinned versions of `requirements.txt`. Both runs complete without error and
+give the same numbers, which are the ones quoted in the discussion cells.
 
 ### Note on the download
 
-The statement downloads the archive with `megadl`, which was not installed on the machine the notebook was run on.
-`scripts/download_movielens_small.sh` uses `megadl` when it is installed and otherwise
-fetches the same MEGA link with `curl`, decrypting the archive with `openssl`
-(AES-128-CTR), so the notebook runs wherever Git Bash, `curl` and `openssl` are available.
+The download cell is the one of the statement with a fallback added: when `megadl` is
+installed it runs the original command; otherwise it fetches the same MEGA link with `curl`
+and decrypts the archive with `openssl` (AES-128-CTR). The archive is then extracted by a
+Python cell (`zipfile`) rather than with `unzip`. If `./data` already holds the csv files,
+both cells do nothing.
 
 ### What section 9 shows
 
