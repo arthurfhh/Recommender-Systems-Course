@@ -1,0 +1,4 @@
+session,model,mean_predicted_top10,validation_rmse
+S03,Collaborative filtering (MF),4.117895132006089,0.9697351514513948
+S03,"Collaborative filtering (MF), lambda = 10",,0.8543502019554555
+S03,Movie mean (baseline),,0.9714322773143804
