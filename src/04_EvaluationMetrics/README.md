@@ -31,16 +31,25 @@ jupyter lab src/04_EvaluationMetrics/philippe.arthur-tp4.ipynb
 
 The notebook is **self-contained**: it needs no other file of the repository and downloads its
 dataset (~2.8 MB) into `./data` next to itself. A full run takes about 40 seconds on a laptop
-CPU; nothing needs a GPU. It was checked by copying the notebook alone into an empty folder and
-executing it there from top to bottom.
+CPU; nothing needs a GPU.
+
+It was checked by copying the notebook alone into an empty folder and executing it there from
+top to bottom, in two environments:
+
+| Environment | Result |
+|---|---|
+| Python 3.11, pandas 3.0.6, scikit-learn 1.9.1, numpy 2.x | 0 error, numbers as committed |
+| Python 3.11, pandas 2.2.3, scikit-learn 1.1.3, numpy 1.26.4 (the pinned `requirements.txt`) | 0 error, identical numbers |
 
 ### Note on the download
 
 `files.grouplens.org` answers `403 Forbidden` from some networks — including the machine this
 notebook was executed on, where the egress proxy denies the tunnel. `download_movielens` keeps
 the URL of the statement as its first choice and falls back to a GitHub mirror of the same
-release, then asserts the dataset size (100 836 ratings, 610 users, 9 742 movies) so a wrong
-mirror cannot pass unnoticed.
+release, then checks the dataset size (100 836 ratings, 610 users, 9 742 movies) so a wrong
+mirror cannot pass unnoticed. The check prints a warning rather than raising: should GroupLens
+republish `ml-latest-small` one day, the notebook still runs and only the row counts announced
+by the statement would differ.
 
 ### What the comparison shows
 
