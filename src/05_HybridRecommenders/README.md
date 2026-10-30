@@ -19,6 +19,7 @@ them.
 | 4. The item neighbours | `similar_items` — cosine in embedding space, query item excluded; toy test matches |
 | 8. Hybrid | Added: **paired** per-user tests of the hybrid against each component |
 | 9. Comparison table | `comparison_table.csv` written next to the notebook (four S05 rows) |
+| 6. Written questions | Answered in the quoted markdown cells, including the one the statement asks in section 6: what the Session 03 latent-factor model would have done with a film nobody has rated |
 | 10. Going further | Topic 1 — how noisy is training, over five seeds (see below) |
 
 ### Running it
