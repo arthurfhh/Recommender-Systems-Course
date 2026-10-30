@@ -24,14 +24,19 @@ them.
 ### Running it
 
 ```bash
-pip install -r requirements.txt     # from the repository root, plus: pip install tensorflow keras
+pip install -r requirements.txt     # from the repository root; it already pins tensorflow
 jupyter lab src/05_HybridRecommenders/philippe.arthur-tp5.ipynb
 ```
 
 The notebook is **self-contained**: it needs no other file of the repository and downloads its
 dataset (~2.8 MB) into `./data` next to itself. A full run takes about **8 minutes** on a
 laptop CPU (nine networks trained in total, five of them for the seed study); nothing needs a
-GPU. Checked with Python 3.11, TensorFlow 2.21 and Keras 3.15.
+GPU.
+
+Checked by copying the notebook alone into an empty folder and executing it there from top to
+bottom, with Python 3.11, TensorFlow 2.21 and Keras 3.15: no error, numbers as committed. The
+only Keras-3-specific line is the `KERAS_BACKEND` one of the statement itself; everything the
+exercises use (`UnitNormalization`, `Dot`, `set_random_seed`) exists since Keras 2.12.
 
 ### Note on the download
 
